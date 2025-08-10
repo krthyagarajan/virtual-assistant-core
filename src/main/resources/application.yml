@@ -1,0 +1,13 @@
+spring:
+  application:
+    name: virtual-assistant-core
+  datasource:
+    url: jdbc:mysql://localhost:3306/virtual-assistant-core
+    username: root
+    password: root
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: update
+server:
+  port: 9001
