@@ -1,0 +1,43 @@
+package com.trainings.virtual_assistant.cricket.repository;
+
+import jakarta.persistence.*;
+import lombok.*;
+import org.hibernate.annotations.JdbcTypeCode;
+import org.hibernate.annotations.UuidGenerator;
+import org.hibernate.type.SqlTypes;
+
+import java.math.BigDecimal;
+import java.util.UUID;
+
+@Entity
+@Getter
+@Setter
+@ToString
+@NoArgsConstructor
+@AllArgsConstructor
+@Table(name = "match_player")
+public class MatchPlayerEntity {
+
+
+    public MatchPlayerEntity(UUID uuid){
+        this.id = uuid;
+    }
+
+    @Id
+    @UuidGenerator
+    @JdbcTypeCode(SqlTypes.CHAR)
+    @Column(length = 36, columnDefinition = "CHAR(36)")
+    private UUID id;
+
+    @ManyToOne
+    @JoinColumn(name = "player_id")
+    private PlayerEntity player;
+
+    @ManyToOne
+    @JoinColumn(name = "match_id")
+    private MatchEntity match;
+
+    private BigDecimal amountPayable;
+
+    private BigDecimal amountPaid;
+}
