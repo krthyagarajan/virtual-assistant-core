@@ -1,13 +1,12 @@
-package com.trainings.virtual_assistant.cricket.repository;
+package com.trainings.virtual_assistant.cricket;
 
+import com.trainings.virtual_assistant.users.UserEntity;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.JdbcTypeCode;
 import org.hibernate.annotations.UuidGenerator;
 import org.hibernate.type.SqlTypes;
 
-import java.math.BigDecimal;
-import java.util.List;
 import java.util.UUID;
 
 @Entity
@@ -16,11 +15,10 @@ import java.util.UUID;
 @ToString
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "cricket_matches")
-public class MatchEntity {
+@Table(name = "cricket_team")
+public class TeamEntity {
 
-
-    public MatchEntity(UUID uuid){
+    public TeamEntity(UUID uuid){
         this.id = uuid;
     }
 
@@ -31,15 +29,10 @@ public class MatchEntity {
     private UUID id;
 
     @Column(nullable = false, unique = true)
-    private String date;
+    private String teamName;
 
-    private Byte overs;
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private UserEntity user;
 
-    private String location;
-
-    private BigDecimal fees;
-
-    private String additionalInfo;
-
-    private String opponent;
 }

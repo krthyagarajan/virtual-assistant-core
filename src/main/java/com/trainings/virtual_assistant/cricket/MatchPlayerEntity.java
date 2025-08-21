@@ -1,14 +1,12 @@
-package com.trainings.virtual_assistant.cricket.repository;
+package com.trainings.virtual_assistant.cricket;
 
-import com.trainings.virtual_assistant.cricket.PlayerRole;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.JdbcTypeCode;
 import org.hibernate.annotations.UuidGenerator;
 import org.hibernate.type.SqlTypes;
 
-import java.util.HashSet;
-import java.util.List;
+import java.math.BigDecimal;
 import java.util.UUID;
 
 @Entity
@@ -17,10 +15,11 @@ import java.util.UUID;
 @ToString
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "cricket_players")
-public class PlayerEntity {
+@Table(name = "match_player")
+public class MatchPlayerEntity {
 
-    public PlayerEntity(UUID uuid){
+
+    public MatchPlayerEntity(UUID uuid){
         this.id = uuid;
     }
 
@@ -30,12 +29,15 @@ public class PlayerEntity {
     @Column(length = 36, columnDefinition = "CHAR(36)")
     private UUID id;
 
-    @Column(nullable = false, unique = true)
-    private String name;
+    @ManyToOne
+    @JoinColumn(name = "player_id")
+    private PlayerEntity player;
 
-    private Boolean canPayMatchFee;
+    @ManyToOne
+    @JoinColumn(name = "match_id")
+    private MatchEntity match;
 
-    @Enumerated(EnumType.STRING)
-    private PlayerRole playerRole;
+    private BigDecimal amountPayable;
 
+    private BigDecimal amountPaid;
 }

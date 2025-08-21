@@ -1,5 +1,7 @@
 package com.trainings.virtual_assistant.users;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
@@ -45,6 +47,7 @@ public class UserEntity {
     private String displayName;
 
     @Past
+    @JsonFormat(pattern = "dd-MM-yyyy")
     private LocalDate dateOfBirth;
 
     @Email(message = "Email should be valid")
@@ -54,7 +57,4 @@ public class UserEntity {
     private String mobile;
 
     private Boolean active;
-
-
-
 }
